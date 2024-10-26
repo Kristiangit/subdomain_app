@@ -13,7 +13,7 @@ import {
 } from 'chart.js'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 
-import info from '@/info.json'
+import info from '/home/kristian/Dokumenter/Skole-Kode/TANK/subdomain-app/info.json'
 
 ChartJS.register(
   CategoryScale,

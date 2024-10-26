@@ -1,5 +1,8 @@
 {
-    "name": "Lars",
+    "name": "default_name",
     "email": "default_email",
-    "api": "default_api_key"
+    "api": "default_api_key",
+    "web_port": 21003,
+    "ssh_port": 17003,
+    "password": "pass"
 }
