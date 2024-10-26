@@ -13,6 +13,7 @@ import {
 } from 'chart.js'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 
+import info from '@/info.json'
 
 ChartJS.register(
   CategoryScale,
@@ -138,7 +139,7 @@ export default function SolarPanelDashboard() {
   return (
     <div className="w-screen min-h-screen p-6">
       <h1 className="text-3xl font-bold text-center mb-8">
-        Solar Panel Dashboard
+        {info.name} sitt Dashboard
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 gap-y-10">
         {/* Price of Power */}
