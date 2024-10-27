@@ -12,8 +12,7 @@ import {
   Legend,
 } from 'chart.js'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
-
-import info from '/home/kristian/Dokumenter/Skole-Kode/TANK/subdomain-app/info.json'
+import { RowData } from '@/lib/utils'
 
 ChartJS.register(
   CategoryScale,
@@ -39,32 +38,24 @@ const initialSolarPanelData = {
   powerLeftInBattery: generateRandomArray(1, 5, 10), // kWh
   solarPanelProduction: generateRandomArray(2, 7, 10), // kWh
 }
-
 export default function SolarPanelDashboard() {
   const [data, setData] = useState(initialSolarPanelData)
 
+  // const [info, setInfo] = useState<RowData>();
+
   // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setData(prevData => ({
-  //       priceOfPower: updateDataArray(prevData.priceOfPower, 0.1, 0.5),
-  //       powerUsageInHome: updateDataArray(prevData.powerUsageInHome, 3, 10),
-  //       powerLeftInBattery: updateDataArray(prevData.powerLeftInBattery, 1, 5),
-  //       solarPanelProduction: updateDataArray(
-  //         prevData.solarPanelProduction,
-  //         2,
-  //         7
-  //       ),
-  //     }))
-  //   }, 5000)
+  //   async function logJSON() {
+  //     const res = await fetch("/api/info/", {
+  //       method: "GET",
+  //   })
+  //   const data = await res.json();
+  //   // console.log(data)
 
-  //   return () => clearInterval(interval)
-  // }, [])
-
-  // // Function to update the data array by shifting the oldest value and adding a new one
-  // const updateDataArray = (array: number[], min: number, max: number) => {
-  //   const newValue = parseFloat((Math.random() * (max - min) + min).toFixed(2))
-  //   return [...array.slice(1), newValue]
-  // }
+  //   setInfo(data)
+  //   }  
+  //   logJSON()
+  // }, []);
+  
 
   const chartOptions = {
     responsive: true,
@@ -139,7 +130,7 @@ export default function SolarPanelDashboard() {
   return (
     <div className="w-screen min-h-screen p-6">
       <h1 className="text-3xl font-bold text-center mb-8">
-        {info.name} sitt Dashboard
+        Dashboard
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 gap-y-10">
         {/* Price of Power */}

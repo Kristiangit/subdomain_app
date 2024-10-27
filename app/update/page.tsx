@@ -17,6 +17,7 @@ import {
 import { Input } from "../../components/ui/input"
 import { Card, CardHeader, CardContent } from "../../components/ui/card"
 import { useState, useEffect } from "react"
+import { RowData } from "@/lib/utils"
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -32,13 +33,7 @@ const formSchema = z.object({
     message: 'Passwords do not match',
     path: ['passwordConfirm']
 }) 
-type RowData = {
-  name: string;
-  ssh_port: string;
-  web_port: string;
-  user_id: string;
-  password: string;
-};
+
 export default function Update() {
   const [info, setInfo] = useState<RowData>();
 

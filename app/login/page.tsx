@@ -16,17 +16,12 @@ import {
 } from "../../components/ui/form"
 import { Input } from "../../components/ui/input"
 import { Card, CardHeader, CardContent } from "../../components/ui/card"
-
-import info from '/home/kristian/Dokumenter/Skole-Kode/TANK/subdomain-app/info.json'
+import { RowData } from "@/lib/utils"
+import { useState, useEffect } from "react"
 
 const formSchema = z.object({
   username: z.string(),
   password: z.string()
-}).refine((data) => {
-  return data.password === info.password && data.username === info.name
-}, {
-  message: 'Incorrect username or password',
-  path: ['password']
 })
 
 export default function Login() {
@@ -37,12 +32,31 @@ export default function Login() {
           password: "",
         },
       })
+    const [info, setInfo] = useState<RowData>();
+
+    useEffect(() => {
+      async function logJSON() {
+        const res = await fetch("http://localhost:3000/api/info/", {
+          method: "GET",
+      })
+      const data = await res.json();
+      // console.log(data)
+
+      setInfo(data)
+      }  
+      logJSON()
+    }, []);
      
       // 2. Define a submit handler.
     function onSubmit(values: z.infer<typeof formSchema>) {
-      // Do something with the form values.
-      // ✅ This will be type-safe and validated.
-      console.log(values)
+      if (info) {
+        console.log(info)
+        formSchema.refine((data) => {
+          return data.password === info.password && data.username === info.name
+        }, {
+          message: 'Incorrect username or password',
+        })
+      }
     }
 
 

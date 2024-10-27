@@ -2,7 +2,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 
 // Get the path to the JSON file
-const jsonFilePath = path.join(process.cwd(), '../../../home/enmo', 'info.json');
+const jsonFilePath = path.join(process.cwd(), 'info.json');
 
 // Function to read data from the JSON file
 export async function readJsonFile() {
