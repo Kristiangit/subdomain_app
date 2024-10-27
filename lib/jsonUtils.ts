@@ -2,12 +2,11 @@ import { promises as fs } from 'fs';
 import path from 'path';
 
 // Get the path to the JSON file
-const jsonFilePath = path.join(process.cwd(), '/home/enmo', 'info.json');
+const jsonFilePath = path.join(process.cwd(), '../../../home/enmo', 'info.json');
 
 // Function to read data from the JSON file
 export async function readJsonFile() {
   try {
-    console.log(jsonFilePath);
     const fileContents = await fs.readFile(jsonFilePath, 'utf-8');
     return JSON.parse(fileContents); // Parse and return JSON data
   } catch (error) {
@@ -17,9 +16,9 @@ export async function readJsonFile() {
 }
 
 // Function to write data to the JSON file
-export async function writeJsonFile(newData: object) {
+export async function writeJsonFile(newData: any) {
   try {
-    const jsonString = JSON.stringify(newData, null, 2); // Pretty-print JSON with 2 spaces
+    const jsonString = JSON.stringify(newData.newData, null, 2); // Pretty-print JSON with 2 spaces
     await fs.writeFile(jsonFilePath, jsonString, 'utf-8');
   } catch (error) {
     console.error('Error writing to JSON file:', error);

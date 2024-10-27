@@ -38,7 +38,6 @@ type RowData = {
   web_port: string;
   user_id: string;
   password: string;
-// status: string;
 };
 export default function Update() {
   const [info, setInfo] = useState<RowData>();
@@ -49,7 +48,7 @@ export default function Update() {
         method: "GET",
     })
     const data = await res.json();
-    console.log(data)
+    // console.log(data)
 
     setInfo(data)
     }  
@@ -67,19 +66,14 @@ export default function Update() {
      
       // 2. Define a submit handler.
     async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    if (info) {
-      console.log(values, info)
-      sendUpdatePutRequest(values);
-    } else {
-      console.log("get fucked")
-    }
-
+      if (info) { //check if info exists to avoid TS error
+        // console.log(values, info)
+        sendUpdatePutRequest(values);
+      }
     }
     async function sendUpdatePutRequest(form_data: z.infer<typeof formSchema>) {
       if (info?.user_id) {
-        console.log(info.user_id)
+        info.password = form_data.password;
         const res = await fetch("/api/update/", {
           method: "POST",
           headers: {
@@ -91,8 +85,8 @@ export default function Update() {
             newName: form_data.username,
             })
           })
-          const data = await res.json();
-          console.log(data)
+          // const data = await res.json();
+          // console.log(data)
         }
       }
 

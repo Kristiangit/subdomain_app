@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
   const { info, newName } = await request.json();
@@ -9,14 +9,14 @@ export async function POST(request: NextRequest) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      userId: info.userId,
+      userId: info.user_id,
       newName: newName,
     }),
   });
   const data = await res.json();
   if (data.name) {
     info.name = newName;
-    const res = await fetch('api/info/', {
+    const res = await fetch('http://localhost:3000/api/info/', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -26,6 +26,7 @@ export async function POST(request: NextRequest) {
         newData: info,
       }),
     });
+    // const response = await res.json();
   }
-  return new Response(JSON.stringify(data));
+  return NextResponse.json([info, data]);
 }
