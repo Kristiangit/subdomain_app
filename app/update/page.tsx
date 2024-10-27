@@ -50,8 +50,8 @@ export default function Update() {
       sendUpdatePutRequest(values);
     }
     async function sendUpdatePutRequest(form_data: z.infer<typeof formSchema>) {
-      const res = await fetch("http://gruppe11.codexenmo.no//api/update", {
-          method: "PUT",
+      const res = await fetch("http://gruppe11.codexenmo.no/api/update/", {
+          method: "POST",
           headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
