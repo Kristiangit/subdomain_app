@@ -16,7 +16,7 @@ import {
 } from "../../components/ui/form"
 import { Input } from "../../components/ui/input"
 import { Card, CardHeader, CardContent } from "../../components/ui/card"
-import info from '/home/enmo/info.json';
+import { useState, useEffect } from "react"
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -32,8 +32,30 @@ const formSchema = z.object({
     message: 'Passwords do not match',
     path: ['passwordConfirm']
 }) 
-
+type RowData = {
+  name: string;
+  ssh_port: string;
+  web_port: string;
+  user_id: string;
+  password: string;
+// status: string;
+};
 export default function Update() {
+  const [info, setInfo] = useState<RowData>();
+
+  useEffect(() => {
+    async function logJSON() {
+      const res = await fetch("/api/info/", {
+        method: "GET",
+    })
+    const data = await res.json();
+    console.log(data)
+
+    setInfo(data)
+    }  
+    logJSON()
+  }, []);
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -44,27 +66,36 @@ export default function Update() {
       })
      
       // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof formSchema>) {
+    async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-      console.log(values)
+    if (info) {
+      console.log(values, info)
       sendUpdatePutRequest(values);
+    } else {
+      console.log("get fucked")
+    }
+
     }
     async function sendUpdatePutRequest(form_data: z.infer<typeof formSchema>) {
-      const res = await fetch("/api/update/", {
+      if (info?.user_id) {
+        console.log(info.user_id)
+        const res = await fetch("/api/update/", {
           method: "POST",
           headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-              userId: info.user_id,
-              newName: form_data.username,
+            info: info,
+            newName: form_data.username,
+            })
           })
-      })
-      const data = await res.json();
-      console.log(data)
-    }
+          const data = await res.json();
+          console.log(data)
+        }
+      }
+
 
   return (
     <div className="w-screen h-screen flex justify-center items-center">
@@ -123,6 +154,7 @@ export default function Update() {
     </Form>
     </CardContent>
     </Card>
+    {/* <button onClick={logJSON}>TEST</button> */}
     </div>
 
   )

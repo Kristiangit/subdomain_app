@@ -1,6 +1,6 @@
 {
     "name": "default_name",
-    "email": "default_email",
+    "user_id": "ERsCNoqGYcrdPqCH",
     "api": "default_api_key",
     "web_port": 21003,
     "ssh_port": 17003,
