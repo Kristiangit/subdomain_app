@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
   const data = await res.json();
   if (data.name) {
     info.name = newName;
-    const res = await fetch('http://localhost:3000/api/info/', {
+    const res = await fetch('/api/info/', {
       method: 'POST',
       headers: {
         Accept: 'application/json',

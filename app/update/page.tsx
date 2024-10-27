@@ -18,6 +18,7 @@ import { Input } from "../../components/ui/input"
 import { Card, CardHeader, CardContent } from "../../components/ui/card"
 import { useState, useEffect } from "react"
 import { RowData } from "@/lib/utils"
+import { redirect } from "next/navigation"
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -49,21 +50,26 @@ export default function Update() {
     }  
     logJSON()
   }, []);
-
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-          username: "",
-          password: "",
-          passwordConfirm: "",
-        },
-      })
+  // const router = useRouter();
+  const form = useForm<z.infer<typeof formSchema>>({
+      resolver: zodResolver(formSchema),
+      defaultValues: {
+        username: "",
+        password: "",
+        passwordConfirm: "",
+      },
+    })
      
       // 2. Define a submit handler.
     async function onSubmit(values: z.infer<typeof formSchema>) {
       if (info) { //check if info exists to avoid TS error
         // console.log(values, info)
-        sendUpdatePutRequest(values);
+        const response = await sendUpdatePutRequest(values);
+        console.log(response)
+          //Loading new information and dashboard
+          //router.push(`http://${values.username}.gruppe11.codexenmo.no`)
+
+          return redirect(`http://${values.username}.gruppe11.codexenmo.no`);
       }
     }
     async function sendUpdatePutRequest(form_data: z.infer<typeof formSchema>) {
@@ -80,8 +86,9 @@ export default function Update() {
             newName: form_data.username,
             })
           })
-          // const data = await res.json();
-          // console.log(data)
+          const data = await res.json();
+          console.log(data);
+          
         }
       }
 
@@ -143,7 +150,6 @@ export default function Update() {
     </Form>
     </CardContent>
     </Card>
-    {/* <button onClick={logJSON}>TEST</button> */}
     </div>
 
   )

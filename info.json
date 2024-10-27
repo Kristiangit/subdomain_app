@@ -1,8 +1,8 @@
 {
-  "name": "nicoco",
+  "name": "kokok",
   "user_id": "ERsCNoqGYcrdPqCH",
   "api": "default_api_key",
   "web_port": 21003,
   "ssh_port": 17003,
-  "password": "passord"
+  "password": "passpassord"
 }
