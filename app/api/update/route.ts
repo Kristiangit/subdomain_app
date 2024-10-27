@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server';
 
 export default async function POST(request: NextRequest) {
-  const { userId, username } = await request.json();
+  const { userId, newName } = await request.json();
   const res = await fetch('http://gruppe11.codexenmo.no/api/update/', {
     method: 'POST',
     headers: {
@@ -10,7 +10,7 @@ export default async function POST(request: NextRequest) {
     },
     body: JSON.stringify({
       userId: userId,
-      newName: username,
+      newName: newName,
     }),
   });
   const data = await res.json();

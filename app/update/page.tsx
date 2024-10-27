@@ -16,6 +16,7 @@ import {
 } from "../../components/ui/form"
 import { Input } from "../../components/ui/input"
 import { Card, CardHeader, CardContent } from "../../components/ui/card"
+import info from '/home/enmo/info.json';
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -57,7 +58,7 @@ export default function Update() {
               'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-              userId: "ballestein",
+              userId: info.user_id,
               newName: form_data.username,
           })
       })
